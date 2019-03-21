@@ -31,6 +31,17 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
 
     //TODO implement the other events in the exact same way!
 
+    this.passwordField.onkeyup = function() {
+        that.check();
+    };
+
+    this.passwordField.focus(function() {
+        that.check();
+    });
+
+    this.passwordSubmitButton.click = function() {
+        that.check();
+    };
 
 
 
@@ -40,7 +51,6 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
         //we can only check if every field which with given Id exists
         //one of them would be null if one Id wouldn't exist therefore following statement would fail
         if(this.wrapperField && this.passwordField && this.passwordSubmitButton) {
-
             var longEnough = this.checkForLength();
             var hasSpecialChars = this.checkForSpecialCharacters();
 
@@ -70,8 +80,12 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
      */
     this.checkForLength = function() {
         //@todo
+        if(this.passwordField.value.length >= this.minLength)
+        {
+            return true;
+        }
         //have a look at javascript string methods and properties
-        return true; //this needs to be replaced!
+        //this needs to be replaced!
     };
 
     /*
@@ -79,9 +93,12 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
      */
     this.checkForSpecialCharacters = function() {
         //@todo
+        var passw =  /^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[#?!@$%^&*\-_])$/
+        return passw.test(this.passwordField);
+
+
         //have a look at javascript string methods and properties
         //you could probably "match" it somehow
-        return true; //this needs to be replaced!
     };
 }
 
